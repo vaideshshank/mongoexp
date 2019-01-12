@@ -1,0 +1,38 @@
+Commands
+
+use db_name
+show dbs/collections
+db.createCollection("name")
+db.collection_name.insert({
+    ... : ...
+})
+
+db.find().pretty()
+
+WHERE clause in MongoDB
+
+$lt,$lte,$gt,$gte,$ne           : db.name.find({age:{$gt:21}})
+
+AND/OR statements:-
+$and[
+    {name: ...},
+    {age: ...}
+]
+
+$or[
+    {name: ...},
+    {age: ...}
+]
+
+
+->UPDATE
+db.fuzzy.update(selection_criteria,updated_info)
+db.fuzzy.update({name:"ecrjk"},{$set:{age:4}})
+
+->Projection
+db.fuzzy.find({},{_id:0})
+
+->Limit & skip: db.fuzzy.find().limit(5).skip(2)                ->skips first two documents
+
+->Sort
+    db.fuzzy.find().sort({name:1/-1 })

@@ -1,7 +1,7 @@
 const express=require('express');
 const app=express();
 const bodyParser=require('body-parser');
-const MongoClient=require('mongodb').MongoClient;
+const {MongoClient,ObjectId}=require('mongodb');
 const mongoose=require('mongoose');
 require('dotenv').config();
 
@@ -9,17 +9,47 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(__dirname));
 
 
-
 MongoClient.connect('mongodb://Vaidesh1999:maggie123@ds161316.mlab.com:61316/flash',{ useNewUrlParser: true },function(err,db){
+    if(err) throw err;
+    console.log("Connected");
+    var dbo=db.db("flash");
+    dbo.collection('model1').find().toArray(function(err,res){
+        if(err) throw err;
+        console.log(res);
+        db.close();
+    })
+
+    /*dbo.collection("model1").deleteOne({food:'Achar'}).then(function(err,res){
+        if(err) console.log(err);
+        console.log("deleted : "+res);
+        db.close();
+    })*/
+})
+/*var x={name:"vaidesh",age:54};
+var {name}=x;                   //object destructoring
+var obj=new ObjectId(1234);
+console.log(obj)*/
+
+/*MongoClient.connect('mongodb://Vaidesh1999:maggie123@ds161316.mlab.com:61316/flash',{ useNewUrlParser: true },function(err,db){
     if(err) throw err;
     console.log("Connected to mongo");
     var dbo=db.db("flash");
-    dbo.collection('model1').find({}).toArray(function(err,res){
+    dbo.collection("model1").insert({
+        food : 'Achar',
+        price: 541,
+        addons:[
+            {name:"Rice"},
+            {name:'Plums'}
+        ]
+    },function(err,res){
+    
+    dbo.collection('model1').find({},function(err,res){
         if(err) throw err;
         console.log(res);
         db.close();
     })
 })
+})*/
 /*
 mongoose.connect('mongodb://Vaidesh1999:maggie123@ds161316.mlab.com:61316/flash',{ useNewUrlParser: true });
 var db=mongoose.connection;
@@ -82,6 +112,6 @@ app.post("/items",function(req,res){
     })
 })*/
 
-app.listen(process.env.port,function(){
+/*app.listen(process.env.port,function(){
     console.log(`Listening to port ${process.env.port}`);
-})
+})*/

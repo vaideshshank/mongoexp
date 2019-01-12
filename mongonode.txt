@@ -1,0 +1,9 @@
+Mongo commands for node js:-
+
+
+db.collection("name").find({}).toArray().then(f1()=>{},err()=>{})           -> toArray returns a pointer to the first element of the array thus obtained
+
+DELETE:-
+db.collection("name").deleteOne({...}).then(f1(res){...},err(){...})
+db.collection("name").deleteMany({...}).then(f1(res){...},err(){...})
+db.collection("name").findOneAndDelete({...}).then(f1(deleted_obj){...},err(){...})
